@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horizon Slider - All Demos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/mansurivilla/horizonslider/prod/css/HorizonSlider.min.css
+      "
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      h1 {
+        font-size: 3em;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .tagline {
+        font-size: 1.2em;
+        color: #7f8c8d;
+      }
+
+      .demo-section {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 60px;
+        max-width: 1720px; /* Aligns with horizon-slider_container max-width */
+        margin-left: auto; /* Corrected to auto for centering */
+        margin-right: auto; /* Corrected to auto for centering */
+        border: 1px solid #e9ecef;
+      }
+
+      .demo-section h2 {
+        text-align: center;
+        color: #34495e;
+        margin-bottom: 35px;
+        font-size: 2.2em;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .demo-section h2::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #007bff; /* Accent color */
+        border-radius: 2px;
+      }
+
+      .demo-section p {
+        text-align: center;
+        margin-top: 20px;
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.95em;
+      }
+
+      /* --- Code Block Styling --- */
+      .code-block-container {
+        position: relative;
+        background-color: #282c34; /* Dark background for code */
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        overflow-x: auto;
+      }
+      .code-block {
+        background-color: #282c34;
+        color: #abb2bf; /* Light grey for text */
+        font-family: "Fira Code", "Cascadia Code", "Consolas", "Monaco",
+          monospace;
+        font-size: 0.9em;
+        padding: 0;
+        margin: 0;
+        white-space: pre-wrap; /* Ensures line wrapping */
+        word-wrap: break-word;
+        line-height: 1.5;
+        max-height: 400px; /* Limit height for long code blocks */
+      }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.8em;
+        transition: background-color 0.2s ease;
+      }
+      .copy-button:hover {
+        background-color: #0056b3;
+      }
+      .copy-button:active {
+        background-color: #004085;
+      }
+      .copy-button.copied {
+        background-color: #28a745; /* Green when copied */
+      }
+      .copy-button.copied::after {
+        content: " Copied!";
+      }
+
+      /* --- Individual Slider Styles --- */
+
+      /* Basic Slider */
+      .basic-slider .horizon-slide {
+        background-color: #e3f2fd; /* Light blue */
+        color: #2196f3; /* Blue */
+        font-size: 2.2em;
+        padding: 50px 20px;
+        text-align: center;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #bbdefb; /* Lighter blue border */
+        transition: background-color 0.3s ease;
+      }
+      .basic-slider .horizon-slide:nth-child(even) {
+        background-color: #c9e6fe;
+      }
+      .basic-slider .horizon-slide:hover {
+        background-color: #a0dfff;
+        cursor: default;
+      }
+
+      /* Autoplay Slider */
+      .autoplay-slider .horizon-slide {
+        background-color: #e8f5e9; /* Light green */
+        color: #4caf50; /* Green */
+        font-size: 2.2em;
+        padding: 50px 20px;
+        text-align: center;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #c8e6c9; /* Lighter green border */
+        transition: transform 0.3s ease;
+      }
+      .autoplay-slider .horizon-slide:nth-child(even) {
+        background-color: #dcedc8;
+      }
+      .autoplay-slider .horizon-slide:hover {
+        transform: scale(1.02);
+      } /* Subtle hover effect */
+
+      /* No Drag Slider */
+      .no-drag-slider .horizon-slide,
+      .one-thired-slider .horizon-slide {
+        background-color: #ffebee; /* Light red */
+        color: #f44336; /* Red */
+        font-size: 2.2em;
+        padding: 40px 15px;
+        text-align: center;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ffcdd2; /* Lighter red border */
+        cursor: not-allowed; /* Indicate no drag */
+      }
+      .no-drag-slider .horizon-slide:nth-child(even) {
+        background-color: #ffcdd2;
+      }
+
+      /* Image Slider */
+      .image-slider .horizon-slide {
+        background-color: #fdfefe;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between; /* Distribute space between image and text */
+        padding: 15px;
+        height: 300px; /* Adjusted for image and text */
+        text-align: center;
+        border: 1px solid #eceff1;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        overflow: hidden; /* Ensure image doesn't overflow */
+      }
+      .image-slider .horizon-slide img {
+        max-width: 100%;
+        height: 200px; /* Fixed height for images */
+        object-fit: cover; /* Maintain aspect ratio and cover area */
+        border-radius: 6px;
+        display: block; /* Remove extra space below inline images */
+        transition: transform 0.3s ease;
+      }
+      .image-slider .horizon-slide img:hover {
+        transform: scale(1.05); /* Zoom effect on hover */
+      }
+      .image-slider .horizon-slide p {
+        font-size: 1em;
+        color: #4a4a4a;
+        margin-top: 10px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Horizon Slider Demos</h1>
+      <p class="tagline">
+        Explore the capabilities of your custom JavaScript slider.
+      </p>
+    </header>
+
+    <div class="demo-section">
+      <h2>Quick Start Guide</h2>
+      <p>
+        Get your Horizon Slider up and running in minutes! Follow these simple
+        steps to integrate it into your project.
+      </p>
+
+      <h3>1. Include Necessary Files in Your HTML Head</h3>
+      <p>Add these lines to the `head` section of your HTML file.</p>
+      <div class="code-block-container">
+        <button class="copy-button" onclick="copyCode(this, 'html-setup-code')">
+          Copy
+        </button>
+        <pre class="code-block" id="html-setup-code">
+&lt;!-- Horizon Slider CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mansurivilla/horizonslider/prod/css/HorizonSlider.min.css"&gt;
+
+&lt;!-- GSAP Core (required by Draggable) --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"&gt;&lt;/script&gt;
+</pre
+        >
+      </div>
+
+      <h3>2. Basic HTML Layout for Your Slider</h3>
+      <p>
+        Use this basic structure for each slider you want to create. Customize
+        the `slide` content as needed.
+      </p>
+      <div class="code-block-container">
+        <button
+          class="copy-button"
+          onclick="copyCode(this, 'html-layout-code')"
+        >
+          Copy
+        </button>
+        <pre class="code-block" id="html-layout-code">
+&lt;!-- Your Slider Container --&gt;
+&lt;div class="horizon-slider_container my-custom-slider"&gt;
+    &lt;div class="horizon-slider_track"&gt;
+        &lt;div class="horizon-slide"&gt;Your Slide Content 1&lt;/div&gt;
+        &lt;div class="horizon-slide"&gt;Your Slide Content 2&lt;/div&gt;
+        &lt;div class="horizon-slide"&gt;Your Slide Content 3&lt;/div&gt;
+        &lt;!-- Add more slides as needed --&gt;
+    &lt;/div&gt;
+    &lt;!-- Navigation and tracker will be dynamically generated here --&gt;
+&lt;/div&gt;
+</pre
+        >
+      </div>
+
+      <h3>3. Initialize Your Slider with JavaScript</h3>
+      <p>
+        Place this script just before your closing `&lt;/body&gt;` tag. Remember
+        to link your Horizon Slider JS file.
+      </p>
+      <div class="code-block-container">
+        <button class="copy-button" onclick="copyCode(this, 'js-init-code')">
+          Copy
+        </button>
+        <pre class="code-block" id="js-init-code">
+&lt;!-- Horizon Slider JavaScript --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/mansurivilla/horizonslider/prod/js/HorizonSlider.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+    // Initialize your slider(s)
+    horizonSlider({
+        '.my-custom-slider': { // Use the class name of your slider container
+            loop: true,
+            margin: 20,
+            nav: true,
+            showTracker: true,
+            drag: true,
+            autoplay: {
+                delay: 4000,
+                pauseOnHover: true
+            },
+            responsive: {
+                0: { items: 1 },    // 1 item on screens < 768px
+                768: { items: 2 },  // 2 items on screens >= 768px
+                1024: { items: 3 }  // 3 items on screens >= 1024px
+            }
+        }
+    });
+&lt;/script&gt;
+</pre
+        >
+      </div>
+    </div>
+    <div class="demo-section">
+      <h2>Basic Slider Demo</h2>
+      <div class="horizon-slider_container basic-slider">
+        <div class="horizon-slider_track">
+          <div class="horizon-slide">Slide 1</div>
+          <div class="horizon-slide">Slide 2</div>
+          <div class="horizon-slide">Slide 3</div>
+          <div class="horizon-slide">Slide 4</div>
+          <div class="horizon-slide">Slide 5</div>
+          <div class="horizon-slide">Slide 6</div>
+        </div>
+      </div>
+      <p>
+        A simple implementation showing the core slider functionality with
+        default navigation, tracker, and draggable support.
+      </p>
+    </div>
+
+    <div class="demo-section">
+      <h2>Autoplay Slider with Loop & Pause on Hover</h2>
+      <div class="horizon-slider_container autoplay-slider">
+        <div class="horizon-slider_track">
+          <div class="horizon-slide">Auto Slide 1</div>
+          <div class="horizon-slide">Auto Slide 2</div>
+          <div class="horizon-slide">Auto Slide 3</div>
+          <div class="horizon-slide">Auto Slide 4</div>
+          <div class="horizon-slide">Auto Slide 5</div>
+          <div class="horizon-slide">Auto Slide 6</div>
+          <div class="horizon-slide">Auto Slide 7</div>
+        </div>
+      </div>
+      <p>
+        Experience smooth automatic transitions. Hover over the slider to pause
+        the autoplay, and it will resume when your mouse leaves.
+      </p>
+    </div>
+
+    <div class="demo-section">
+      <h2>Slider with Disabled Drag</h2>
+      <div class="horizon-slider_container no-drag-slider">
+        <div class="horizon-slider_track">
+          <div class="horizon-slide">No Drag 1</div>
+          <div class="horizon-slide">No Drag 2</div>
+          <div class="horizon-slide">No Drag 3</div>
+          <div class="horizon-slide">No Drag 4</div>
+          <div class="horizon-slide">No Drag 5</div>
+        </div>
+      </div>
+      <p>
+        This slider demonstrates how to disable the dragging feature. Navigation
+        is controlled solely by the previous/next buttons.
+      </p>
+    </div>
+
+    <div class="demo-section">
+      <h2>Slider with Image Content</h2>
+      <div class="horizon-slider_container image-slider">
+        <div class="horizon-slider_track">
+          <div class="horizon-slide">
+            <img
+              src="https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg"
+              alt="Mountain Landscape"
+            />
+            <p>Majestic mountains in the morning light.</p>
+          </div>
+          <div class="horizon-slide">
+            <img
+              src="https://images.pexels.com/photos/1878811/pexels-photo-1878811.jpeg"
+              alt="Deep Forest"
+            />
+            <p>Tranquil green forest, full of life.</p>
+          </div>
+          <div class="horizon-slide">
+            <img
+              src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg"
+              alt="Vast Ocean"
+            />
+            <p>The calming blue of the endless ocean.</p>
+          </div>
+          <div class="horizon-slide">
+            <img
+              src="https://images.pexels.com/photos/2260835/pexels-photo-2260835.jpeg"
+              alt="Night City"
+            />
+            <p>City lights twinkling in the night.</p>
+          </div>
+          <div class="horizon-slide">
+            <img
+              src="https://images.pexels.com/photos/4017971/pexels-photo-4017971.png"
+              alt="Desert Dunes"
+            />
+            <p>Golden sand dunes under a clear sky.</p>
+          </div>
+        </div>
+      </div>
+      <p>
+        See how Horizon Slider handles image-rich content, adapting seamlessly
+        to various media types.
+      </p>
+    </div>
+
+    <div class="demo-section">
+      <h2>Slider with Disabled Drag</h2>
+      <div class="horizon-slider_container one-thired-slider">
+        <div class="horizon-slider_track">
+          <div class="horizon-slide">No Drag 1</div>
+          <div class="horizon-slide">No Drag 2</div>
+          <div class="horizon-slide">No Drag 3</div>
+          <div class="horizon-slide">No Drag 4</div>
+          <div class="horizon-slide">No Drag 5</div>
+        </div>
+      </div>
+      <p>
+        This slider demonstrates how to disable the dragging feature. Navigation
+        is controlled solely by the previous/next buttons.
+      </p>
+    </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/gh/mansurivilla/horizonslider/prod/js/HorizonSlider.min.js"></script> -->
+    <script src="./js/HorizonSlider.js"></script>
+
+    <script>
+      // Function to copy code to clipboard
+      function copyCode(button, elementId) {
+        const codeElement = document.getElementById(elementId);
+        const codeText = codeElement.innerText;
+
+        navigator.clipboard
+          .writeText(codeText)
+          .then(() => {
+            button.textContent = "Copied!";
+            button.classList.add("copied");
+            setTimeout(() => {
+              button.textContent = "Copy";
+              button.classList.remove("copied");
+            }, 2000); // Reset button text after 2 seconds
+          })
+          .catch((err) => {
+            console.error("Failed to copy text: ", err);
+            alert("Failed to copy code. Please copy manually.");
+          });
+      }
+
+      // Initialize all sliders on the page
+      horizonSlider({
+        ".basic-slider": {
+          margin: 15,
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 3 },
+          },
+        },
+        ".autoplay-slider": {
+          loop: true,
+          margin: 20,
+          nav: true,
+          drag: true,
+          showTracker: true,
+          autoplay: {
+            delay: 3000,
+            pauseOnHover: true,
+          },
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2, drag: true },
+            1024: { items: 4 },
+          },
+        },
+        ".no-drag-slider": {
+          loop: false,
+          margin: 50,
+          nav: true,
+          showTracker: true,
+          drag: false /* DRAG DISABLED for this slider */,
+          autoplay: false,
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 3 },
+          },
+        },
+        ".image-slider": {
+          loop: false,
+          margin: 25,
+          nav: true,
+          showTracker: true,
+          drag: true,
+          autoplay: false,
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 3 },
+          },
+        },
+        ".one-thired-slider": {
+          loop: false,
+          margin: 0 ,
+          nav: true,
+          showTracker: true,
+          drag: false,
+          autoplay: false,
+          center: true,
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1024: { items: 2.2 },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
